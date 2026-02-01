@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Inventory 📦</h2>
+
+<div class="card">
+
+<form method="POST">
+<input name="name" placeholder="Item Name" required>
+<input name="weight" placeholder="Weight (grams)" required>
+<select name="type">
+<option>Gold</option>
+<option>Silver</option>
+</select>
+<button>Add Item</button>
+</form>
+
+</div>
+
+<div class="card">
+
+<h3>Inventory List</h3>
+
+<table>
+<tr>
+<th>Name</th>
+<th>Weight</th>
+<th>Type</th>
+<th>Delete</th>
+</tr>
+
+{% for item in items %}
+<tr>
+<td>{{ item["name"] }}</td>
+<td>{{ item["weight"] }}</td>
+<td>{{ item["type"] }}</td>
+<td><a href="/delete/{{ item['id'] }}"><button>Delete</button></a></td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}

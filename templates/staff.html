@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Staff Management 👨‍💼</h2>
+
+<div class="card">
+
+<form method="POST">
+<input name="name" placeholder="Staff Name" required>
+<input name="role" placeholder="Role" required>
+<input name="phone" placeholder="Phone" required>
+<button type="submit">Add Staff</button>
+</form>
+
+</div>
+
+<div class="card">
+
+<h3>Staff List</h3>
+
+<table>
+<tr>
+<th>Name</th>
+<th>Role</th>
+<th>Phone</th>
+<th>Attendance</th>
+<th>Delete</th>
+</tr>
+
+{% for s in staff %}
+<tr>
+<td>{{ s["name"] }}</td>
+<td>{{ s["role"] }}</td>
+<td>{{ s["phone"] }}</td>
+<td><a href="/attendance?staff={{ s['id'] }}"><button>Mark</button></a></td>
+<td><a href="/delete_staff/{{ s['id'] }}"><button>Delete</button></a></td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}

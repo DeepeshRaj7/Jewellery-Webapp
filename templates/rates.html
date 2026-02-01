@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>💰 Gold & Silver Rate Update</h2>
+
+<form method="POST">
+    <label>Gold Rate (per gram)</label><br>
+    <input type="number" step="0.01" name="gold" required><br><br>
+
+    <label>Silver Rate (per gram)</label><br>
+    <input type="number" step="0.01" name="silver" required><br><br>
+
+    <button type="submit">Save Today’s Rate</button>
+</form>
+
+<hr>
+
+{% if latest %}
+<h3>📅 Latest Rates</h3>
+<p>Gold: ₹{{ latest["gold"] }} / gram</p>
+<p>Silver: ₹{{ latest["silver"] }} / gram</p>
+<p>Date: {{ latest["date"] }}</p>
+{% endif %}
+
+{% endblock %}

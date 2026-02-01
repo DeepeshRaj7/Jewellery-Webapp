@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Attendance 🕒</h2>
+
+<div class="card">
+
+<form method="POST">
+<select name="staff_id">
+{% for s in staff %}
+<option value="{{ s['id'] }}">{{ s['name'] }}</option>
+{% endfor %}
+</select>
+
+<select name="status">
+<option>Present</option>
+<option>Absent</option>
+</select>
+
+<button>Save Attendance</button>
+</form>
+
+</div>
+
+<div class="card">
+
+<h3>Attendance History</h3>
+
+<table>
+<tr>
+<th>Date</th>
+<th>Name</th>
+<th>Status</th>
+</tr>
+
+{% for a in records %}
+<tr>
+<td>{{ a["date"] }}</td>
+<td>{{ a["name"] }}</td>
+<td>{{ a["status"] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}
+
+

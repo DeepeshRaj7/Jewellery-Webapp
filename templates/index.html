@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jewellery Shop Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .rates {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            width: 40%;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .gold {
+            border-top: 5px solid gold;
+        }
+
+        .silver {
+            border-top: 5px solid silver;
+        }
+
+        .rate {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .links a {
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>💍 Jewellery Shop Management</h1>
+    <p style="text-align:center;">Live Market Rates</p>
+
+    <div class="rates">
+        <div class="card gold">
+            <h2>Gold Rate (₹ / gram)</h2>
+            <div class="rate">{{ gold_rate }}</div>
+        </div>
+
+        <div class="card silver">
+            <h2>Silver Rate (₹ / gram)</h2>
+            <div class="rate">{{ silver_rate }}</div>
+        </div>
+    </div>
+
+    <div class="links">
+        <a href="/inventory">Inventory</a>
+        <a href="/staff">Staff</a>
+        <a href="/attendance">Attendance</a>
+    </div>
+</div>
+
+</body>
+</html>

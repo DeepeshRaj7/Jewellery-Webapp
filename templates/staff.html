@@ -1,44 +1,79 @@
-{% extends "base.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Management</title>
 
-<h2>Staff Management 👨‍💼</h2>
+    <style>
+        .flash-success {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
 
-<div class="card">
+        .flash-error {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- FLASH MESSAGES -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<h1>Staff Management</h1>
 
 <form method="POST">
-<input name="name" placeholder="Staff Name" required>
-<input name="role" placeholder="Role" required>
-<input name="phone" placeholder="Phone" required>
-<button type="submit">Add Staff</button>
+    <label>Name</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Role</label><br>
+    <input type="text" name="role" required><br><br>
+
+    <label>Phone</label><br>
+    <input type="text" name="phone" required><br><br>
+
+    <button type="submit">Add Staff</button>
 </form>
 
-</div>
+<hr>
 
-<div class="card">
+<h2>Staff List</h2>
 
-<h3>Staff List</h3>
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th>Phone</th>
+        <th>Action</th>
+    </tr>
 
-<table>
-<tr>
-<th>Name</th>
-<th>Role</th>
-<th>Phone</th>
-<th>Attendance</th>
-<th>Delete</th>
-</tr>
-
-{% for s in staff %}
-<tr>
-<td>{{ s["name"] }}</td>
-<td>{{ s["role"] }}</td>
-<td>{{ s["phone"] }}</td>
-<td><a href="/attendance?staff={{ s['id'] }}"><button>Mark</button></a></td>
-<td><a href="/delete_staff/{{ s['id'] }}"><button>Delete</button></a></td>
-</tr>
-{% endfor %}
-
+    {% for s in staff %}
+    <tr>
+        <td>{{ s["name"] }}</td>
+        <td>{{ s["role"] }}</td>
+        <td>{{ s["phone"] }}</td>
+        <td>
+            <a href="/delete_staff/{{ s['id'] }}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
 </table>
 
-</div>
+<br>
+<a href="/">⬅ Back to Home</a>
 
-{% endblock %}
+</body>
+</html>

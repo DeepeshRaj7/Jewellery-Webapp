@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, redirect
 import sqlite3
 from datetime import datetime
 import requests
+from flask import Flask, render_template, request, redirect, flash
+app = Flask(__name__)
+app.secret_key = "supersecretkey"
 
 
 app = Flask(__name__)
@@ -124,11 +127,15 @@ def staff():
                 (name, role, phone)
             )
             conn.commit()
+            flash("✅ Staff added successfully!", "success")
+            return redirect("/staff")
+        else:
+            flash("❌ Please fill all fields", "error")
 
     c.execute("SELECT * FROM staff")
     staff_list = c.fetchall()
-
     conn.close()
+
     return render_template("staff.html", staff=staff_list)
 
 @app.route("/delete_staff/<int:id>")
@@ -140,7 +147,10 @@ def delete_staff(id):
     conn.commit()
     conn.close()
 
+    flash("🗑️ Staff deleted successfully", "success")
     return redirect("/staff")
+
+
 
 # ---------------- INVENTORY PAGE ---------------- #
 
@@ -167,6 +177,8 @@ def inventory():
 
     conn.close()
     return render_template("inventory.html", items=items)
+flash("✅ Item added successfully", "success")
+
 
 @app.route("/delete_item/<int:id>")
 def delete_item(id):
@@ -178,6 +190,7 @@ def delete_item(id):
     conn.close()
 
     return redirect("/inventory")
+flash("🗑️ Item deleted", "success")
 
 # ---------------- ATTENDANCE PAGE ---------------- #
 

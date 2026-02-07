@@ -1,45 +1,84 @@
-{% extends "base.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventory Management</title>
 
-<h2>Inventory 📦</h2>
+    <style>
+        .flash-success {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
 
-<div class="card">
+        .flash-error {
+            background-color: red;
+            color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- FLASH MESSAGES -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<h1>Inventory Management</h1>
 
 <form method="POST">
-<input name="name" placeholder="Item Name" required>
-<input name="weight" placeholder="Weight (grams)" required>
-<select name="type">
-<option>Gold</option>
-<option>Silver</option>
-</select>
-<button>Add Item</button>
+    <label>Item Name</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Weight (grams)</label><br>
+    <input type="number" name="weight" required><br><br>
+
+    <label>Type</label><br>
+    <select name="type" required>
+        <option value="Gold">Gold</option>
+        <option value="Silver">Silver</option>
+    </select><br><br>
+
+    <button type="submit">Add Item</button>
 </form>
 
-</div>
+<hr>
 
-<div class="card">
+<h2>Inventory List</h2>
 
-<h3>Inventory List</h3>
+<table border="1" cellpadding="8">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Weight</th>
+        <th>Type</th>
+        <th>Action</th>
+    </tr>
 
-<table>
-<tr>
-<th>Name</th>
-<th>Weight</th>
-<th>Type</th>
-<th>Delete</th>
-</tr>
-
-{% for item in items %}
-<tr>
-<td>{{ item["name"] }}</td>
-<td>{{ item["weight"] }}</td>
-<td>{{ item["type"] }}</td>
-<td><a href="/delete/{{ item['id'] }}"><button>Delete</button></a></td>
-</tr>
-{% endfor %}
-
+    {% for item in items %}
+    <tr>
+        <td>{{ item["id"] }}</td>
+        <td>{{ item["name"] }}</td>
+        <td>{{ item["weight"] }}</td>
+        <td>{{ item["type"] }}</td>
+        <td>
+            <a href="/delete_inventory/{{ item['id'] }}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
 </table>
 
-</div>
+<br>
+<a href="/">⬅ Back to Home</a>
 
-{% endblock %}
+</body>
+</html>
